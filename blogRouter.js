@@ -13,7 +13,6 @@ BlogPosts.create('Second Post', 'This is my Second blog post guys!!!', 'Kyle');
 router.post('/', jsonParser, (req, res) => {
 	const requiredFields = ['title', 'content', 'author'];
 	for (let i=0; i<requiredFields.length; i++) {
-		console.log(req.body);
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
 			const message = `Missing ${field} in request body.`
