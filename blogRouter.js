@@ -6,12 +6,14 @@ const jsonParser = bodyParser.json();
 const {BlogPosts} = require('./models.js');
 
 //making content
-BlogPosts.create('First Post', 'This is my first blog post guys!!!', 'Kyle');
+BlogPosts.create('First Post', 'This is my First blog post guys!!!', 'Kyle');
+BlogPosts.create('Second Post', 'This is my Second blog post guys!!!', 'Kyle');
 
 //adding new posts
 router.post('/', jsonParser, (req, res) => {
 	const requiredFields = ['title', 'content', 'author'];
 	for (let i=0; i<requiredFields.length; i++) {
+		console.log(req.body);
 		const field = requiredFields[i];
 		if (!(field in req.body)) {
 			const message = `Missing ${field} in request body.`
@@ -19,7 +21,7 @@ router.post('/', jsonParser, (req, res) => {
 			return res.status(400).send(message);
 		}
 	}
-	const item = BlogPosts.create(req.body.name, req.body.content, req.body.author, req.body.publishDate);
+	const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
 	res.status(201).json(item);
 });
 
